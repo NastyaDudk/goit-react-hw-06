@@ -1,12 +1,15 @@
-.filterBox {
-  font-family: sans-serif;
+.label {
+  margin-left: 20px;
   display: flex;
   flex-direction: column;
-  width: 267px;
-  padding-top: 10px;
+  max-width: 375px;
+  gap: 5px;
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: large;
 }
-
-.inputfind {
-  height: 30px;
-  width: 285px;
+.input {
+  background-color: transparent;
+  padding: 5px 10px;
+  border-radius: 3px;
 }

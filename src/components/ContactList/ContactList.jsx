@@ -1,22 +1,31 @@
-import css from './ContactList.module.css';
-import Contact from '../Contact/Contact';
+import Contact from "../Contact/Contact.jsx";
+import css from "./ContactList.module.css";
 
-const ContactList = ({ contacts, deleteContact }) => {
- console.log(contacts)
+import { selectContacts, selectNameFilter } from "../../redux/contactsSlice.js";
+import { useSelector } from "react-redux";
+
+import Notification from "../Notification/Notification.jsx";
+
+const ContactList = () => {
+  const contacts = useSelector(selectContacts);
+  const filter = useSelector(selectNameFilter);
+
+  const filteredContacts = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  if (!contacts.length) return <Notification title={"No contacts yet"} />;
+
+  if (!filteredContacts.length)
+    return <Notification title={"Contacts are not found"} />;
+
   return (
-    <ul className={css.contactList}>
+    <ul className={css.list}>
+      {filteredContacts.map(({ id, name, number }) => (
+        <Contact key={id} id={id} name={name} number={number} />
+      ))}
+    </ul>
+  );
+};
 
-       {contacts.map((item) => {
-        return <li key={item.id}>
-                  <Contact
-                  contact={item}
-                  deleteContact={deleteContact}
-                  />
-               </li>
-           })}
-    </ul>  
-    )  
-}
-
-export default ContactList
-
+export default ContactList;
